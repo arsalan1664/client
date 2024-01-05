@@ -20,15 +20,13 @@ export default function Register({ }: UserAuthFormProps) {
 
     async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        setIsLoading(true);
+        // setIsLoading(true);
         console.log({ email, password });
         setMessage("Signing up...");
         const message = await signup(email, password);
         setMessage(message);
-        setTimeout(() => {
-            setIsLoading(false);
-            toast('Login successful')
-        }, 3000);
+        toast(message)
+
 
     }
     return (
