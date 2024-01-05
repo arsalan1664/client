@@ -7,6 +7,7 @@ import { Button } from "../../../components/ui/button";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 
@@ -23,8 +24,11 @@ export default function Login({ }: UserAuthFormProps) {
 
     const [message, setMessage] = useState('');
 
-    const handleSubmit = async () => {
-        setMessage('Signing in...');
+    const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
+        // setMessage('Signing in...');
+        console.log(status);
+        e.preventDefault()
+
 
         try {
             const signInResponse = await signIn('credentials', {
@@ -32,11 +36,12 @@ export default function Login({ }: UserAuthFormProps) {
                 password,
                 redirect: false,
             })
+            console.log(signInResponse);
 
             if (!signInResponse || signInResponse.ok !== true) {
-                setMessage("Invalid credentials");
+                toast("Invalid credentials");
             } else {
-                router.refresh();
+                // router.refresh();
             }
 
         } catch (err) {
@@ -46,12 +51,12 @@ export default function Login({ }: UserAuthFormProps) {
         setMessage(message);
     };
 
-    useEffect(() => {
-        if (status === 'authenticated') {
-            router.refresh();
-            router.push('/');
-        }
-    }, [status]);
+    // useEffect(() => {
+    //     if (status === 'authenticated') {
+    //         router.refresh();
+    //         router.push('/');
+    //     }
+    // }, [status]);
 
     // async function HandleSubmit(event: FormEvent<HTMLFormElement>) {
     //     event.preventDefault();

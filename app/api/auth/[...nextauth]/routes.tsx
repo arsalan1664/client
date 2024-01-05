@@ -2,12 +2,12 @@
 import { Account, AuthOptions, Profile, Session, User } from "next-auth";
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth/next";
 import prisma from "@/lib/prisma";
+import jwt from 'jsonwebtoken'
 
-export const authOptions: AuthOptions = {
+export const authOptions:AuthOptions = {
     providers: [
         CredentialsProvider({
             name: 'credentials',
@@ -53,7 +53,7 @@ export const authOptions: AuthOptions = {
         })
     ],
     pages: {
-        signIn: '/auth/login',
+        signIn: '/login',
         signOut: '/auth/signout',
     },
     secret: process.env.NEXTAUTH_SECRET,
